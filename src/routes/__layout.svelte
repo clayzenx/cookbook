@@ -1,12 +1,15 @@
-<script lang="ts">
+<script lang="ts" type="module">
 	import { goto } from '$app/navigation';
+	import { onMount } from 'svelte';
 	import { getAuth } from 'firebase/auth';
 	import { getApp } from '$utils/firebase';
 	import 'spectre.css';
 
 	getApp();
 
-	if (!getAuth().currentUser) goto('/login');
+	onMount(() => {
+		if (!getAuth().currentUser) goto('/login');
+	});
 </script>
 
 <div class="wrapper">
