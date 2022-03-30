@@ -30,6 +30,7 @@
   },
   "type": "module",
   "dependencies": {
-    "firebase": "^9.6.10"
+    "firebase": "^9.6.10",
+    "spectre.css": "^0.5.9"
   }
 }

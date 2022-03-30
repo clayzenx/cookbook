@@ -5,6 +5,8 @@
 		signInWithEmailAndPassword
 	} from '$utils/firebase';
 
+	import 'spectre.css';
+
 	getApp();
 
 	createUserWithEmailAndPassword('clay.zenx@gmail.com', 'E5x2L2w5').then(() => {
