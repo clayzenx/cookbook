@@ -1,0 +1,17 @@
+:root {
+  --light-grey: #f7f8f9;
+}
+
+.main-wrapper {
+	width: 100vw;
+	height: 100vh;
+	box-sizing: border-box;
+
+  background-color: var(--light-grey);
+
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+}
+
