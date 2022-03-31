@@ -1,3 +1,9 @@
+@import url('https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css');
+
+*, p, h1, h2, h3, h4, h5  {
+  margin: 0;
+}
+
 :root {
   --light-grey: #f7f8f9;
 }
