@@ -6,9 +6,6 @@ import { firebaseConfig } from "$lib/fb";
 // fb modules import
 import { getAuth } from "firebase/auth";
 
-export { createUser as createUserWithEmailAndPassword } from "./emailPasswordAuth";
-export { signInUser as signInWithEmailAndPassword } from "./emailPasswordAuth";
-
 // fb instances
 let app: firebase.FirebaseApp = null;
 

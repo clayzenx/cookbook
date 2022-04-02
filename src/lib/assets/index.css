@@ -6,14 +6,30 @@
 
 :root {
   --light-grey: #f7f8f9;
+  --grey: rgb(188, 195, 206);
+  --dark-grey: #3b4351;
 }
 
+.text-primary {
+  color:red;
+}
+
+.bg-primary {
+  color:red;
+}
+
+.divider { border-top: 0.05rem solid var(--grey);}
+.divider[data-content] { margin-top: 40px;}
+.divider[data-content]::after {color: var(--grey); background-color: var(--light-grey);}
+
+body {
+  background-color: var(--light-grey);
+}
 .main-wrapper {
 	width: 100vw;
 	height: 100vh;
 	box-sizing: border-box;
 
-  background-color: var(--light-grey);
 
 	display: flex;
 	flex-direction: column;
