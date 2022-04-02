@@ -8,7 +8,7 @@ export const createUser = async (email: string, password: string): Promise<UserC
       return userCredential
     })
     .catch((error: AuthError) => {
-      return error
+      return Promise.reject(error)
     });
 }
 
@@ -18,7 +18,7 @@ export const signInUser = async (email: string, password: string): Promise<UserC
       return userCredential
     })
     .catch((error: AuthError) => {
-      return error
+      return Promise.reject(error)
     });
 }
 

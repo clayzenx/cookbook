@@ -1,11 +1,29 @@
 <script lang="ts">
-	import {} from '$utils/firebase';
+	import { signInUser, createUser } from '$utils/firebase/emailPasswordAuth';
 	export let type: LOGINFORMTYPE;
-	export let data: LoginFormData;
+	export let data: IUser;
+	import { goto } from '$app/navigation';
+	import { getAuth, updateProfile } from 'firebase/auth';
 
 	let showingPass: boolean = false;
-
 	let passInput: HTMLInputElement;
+
+	const logIn = () => {
+		signInUser(data.email, data.password)
+			.then(goto.apply({}, ['/']))
+			.catch(console.error);
+	};
+
+	const signUp = () => {
+		createUser(data.email, data.password)
+			.then(() => {
+				updateProfile(getAuth().currentUser, {
+					displayName: data.login
+				});
+				goto('/');
+			})
+			.catch(console.error);
+	};
 </script>
 
 <div class="form-group p-2">
@@ -41,9 +59,9 @@
 </div>
 
 {#if type === 1}
-	<button class="btn btn-lg btn-success p-centered"> Log In </button>
+	<button on:click={logIn} class="btn btn-lg btn-success p-centered"> Log In </button>
 {:else}
-	<button class="btn btn-lg btn-success p-centered"> Sign Up </button>
+	<button on:click={signUp} class="btn btn-lg btn-success p-centered"> Sign Up </button>
 {/if}
 
 <style scoped>

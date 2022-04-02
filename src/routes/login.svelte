@@ -1,14 +1,11 @@
 <script lang="ts">
 	import LoginForm from '$components/loginForm.svelte';
-	let activeTab: LOGINFORMTYPE = 0;
 
-	let data: LoginFormData = { email: '', password: '', login: '' };
+	let activeTab: LOGINFORMTYPE = 0;
+	let data: IUser = {};
 </script>
 
 <div class="p-centered login-wrapper">
-	<h3>{data?.email}</h3>
-	<h3>{data?.password}</h3>
-
 	<ul class="tab tab-block">
 		<li class="tab-item" class:active={activeTab === 1} on:click={() => (activeTab = 1)}>
 			<a>Sign In</a>
