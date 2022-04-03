@@ -1,21 +1,36 @@
 <script lang="ts">
 	import LoginForm from '$components/loginForm.svelte';
 
-	let activeTab: LOGINFORMTYPE = 0;
-	let data: IUser = {};
+	let activeTab: LOGINFORMTYPE = 1;
+	let data: ILoginFormData = {};
+	let formError = null;
 </script>
 
 <div class="p-centered login-wrapper">
 	<ul class="tab tab-block">
-		<li class="tab-item" class:active={activeTab === 1} on:click={() => (activeTab = 1)}>
-			<a>Sign In</a>
+		<li
+			class="tab-item"
+			class:active={activeTab === 1}
+			on:click={() => {
+				activeTab = 1;
+				formError = null;
+			}}
+		>
+			<a>Log In</a>
 		</li>
-		<li class="tab-item" class:active={activeTab === 0} on:click={() => (activeTab = 0)}>
+		<li
+			class="tab-item"
+			class:active={activeTab === 0}
+			on:click={() => {
+				activeTab = 0;
+				formError = null;
+			}}
+		>
 			<a>Sign Up</a>
 		</li>
 	</ul>
 
-	<LoginForm type={activeTab} bind:data />
+	<LoginForm type={activeTab} bind:data bind:formError />
 
 	<div class="divider text-center" data-content="OR" />
 </div>

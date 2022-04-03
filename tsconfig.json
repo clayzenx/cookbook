@@ -31,6 +31,12 @@
       ],
       "$assets/*": [
         "src/lib/assets/*"
+      ],
+      "$store": [
+        "src/store"
+      ],
+      "$store/*": [
+        "src/store/*"
       ]
     }
   }

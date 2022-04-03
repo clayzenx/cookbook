@@ -16,7 +16,8 @@ const config = {
           $lib: resolve('./src/lib'),
           $components: resolve('./src/lib/components'),
           $utils: resolve('./src/lib/utils'),
-          $assets: resolve('./src/lib/assets')
+          $assets: resolve('./src/lib/assets'),
+          $store: resolve('./src/store')
         },
       },
     },

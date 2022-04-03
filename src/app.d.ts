@@ -12,8 +12,13 @@ declare enum LOGINFORMTYPE {
   SIGNUP,
   SIGNIN
 }
-declare interface IUser {
+declare interface ILoginFormData {
   email?: string,
   password?: string,
   login?: string,
 }
+declare interface IUser {
+  email?: string,
+  displayName?: string,
+}
+
