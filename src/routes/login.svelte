@@ -1,5 +1,6 @@
 <script lang="ts">
 	import LoginForm from '$components/loginForm.svelte';
+	import LoginProviders from '$components/LoginProviders.svelte';
 
 	let activeTab: LOGINFORMTYPE = 1;
 	let data: ILoginFormData = {};
@@ -33,6 +34,8 @@
 	<LoginForm type={activeTab} bind:data bind:formError />
 
 	<div class="divider text-center" data-content="OR" />
+
+	<LoginProviders />
 </div>
 
 <style>
