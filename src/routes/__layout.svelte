@@ -6,6 +6,7 @@
 	import { initApp } from '$utils/firebase';
 	import { initAuth } from '$utils/firebase/auth';
 	import { firebaseConfig } from '$lib/fb';
+	import Header from '$components/Header.svelte';
 	import 'spectre.css';
 	import '$assets/index.css';
 
@@ -22,7 +23,7 @@
 </script>
 
 <div class="main-wrapper">
-	<div class="nav">header</div>
+	<Header />
 	<slot />
 	<div class="footer">footer</div>
 </div>
