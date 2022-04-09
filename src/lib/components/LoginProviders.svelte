@@ -1,9 +1,16 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import { signInUser } from '$utils/firebase/googleAuth';
+
+	const signIn = () => {
+		signInUser()
+			.then(() => goto('/'))
+			.catch(console.error);
+	};
 </script>
 
 <div class="flex-row">
-	<i class="fi fi-brands-google" on:click={() => signInUser()} />
+	<i class="fi fi-brands-google" on:click={() => signIn()} />
 </div>
 
 <style>
@@ -22,4 +29,3 @@
 		color: var(--dark-grey);
 	}
 </style>
-
