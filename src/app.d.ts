@@ -20,5 +20,6 @@ declare interface ILoginFormData {
 declare interface IUser {
   email?: string,
   displayName?: string,
+  image?: string
 }
 

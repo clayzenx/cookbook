@@ -16,7 +16,13 @@
 	onMount(() => {
 		const auth = getAuth();
 		onAuthStateChanged(auth, (state) => {
-			if (state) user.set({ displayName: state.displayName || '', email: state.email });
+			console.log(state);
+			if (state)
+				user.set({
+					displayName: state.displayName || '',
+					email: state.email,
+					image: state.photoURL
+				});
 			else goto('/login');
 		});
 	});
@@ -28,3 +34,9 @@
 
 	<div class="footer">footer</div>
 </Main>
+
+<style global>
+	body {
+		background-color: rgb(248 250 252);
+	}
+</style>

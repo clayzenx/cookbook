@@ -6,39 +6,3 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --container-width: 960px;
-  --primary: #49527B;
-  --secondary: #829CA7;
-  --grey-100: #F3F5F9;
-  --grey-300: #E2E8EB;
-  --grey-500: #CACFD2;
-}
-
-/* heroic-icon styles */
-.heroic-icon {
-	width: 48px;
-	cursor: pointer;
-	color: var(--primary);
-}
-
-
-/* typography */
-h1 {
-  font-family: 'Raleway', sans-serif;
-  font-weight: 400;
-  font-size: 28px;
-  line-height: 150%;
-}
-h3 {
-  font-family: 'Raleway', sans-serif;
-  font-weight: 700;
-  font-size: 18px;
-  line-height: 150%;
-}
-p {
-  font-family: 'Raleway', sans-serif;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 150%;
-}
