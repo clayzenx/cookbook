@@ -2,9 +2,9 @@
 @import url('https://cdn-uicons.flaticon.com/uicons-brands/css/uicons-brands.css');
 @import url('https://fonts.googleapis.com/css2?family=Questrial&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
-*, p, h1, h2, h3, h4, h5  {
-  margin: 0;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
   --container-width: 960px;
@@ -14,6 +14,14 @@
   --grey-300: #E2E8EB;
   --grey-500: #CACFD2;
 }
+
+/* heroic-icon styles */
+.heroic-icon {
+	width: 48px;
+	cursor: pointer;
+	color: var(--primary);
+}
+
 
 /* typography */
 h1 {
@@ -34,41 +42,3 @@ p {
   font-size: 14px;
   line-height: 150%;
 }
-
-/* divider */
-.divider { border-top: 0.05rem solid var(--grey-300);}
-.divider[data-content] { margin-top: 40px;}
-.divider[data-content]::after {color: var(--primary); background-color: var(--grey-100);}
-
-/* layout */
-body {
-  background-color: var(--grey-100);
-}
-.main-wrapper {
-	width: 100vw;
-	height: 100vh;
-	box-sizing: border-box;
-
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-	align-items: center;
-}
-#header {
-  width: var(--container-width);
-  padding: 25px 0;
-}
-
-
-/* flex */
-.d-flex { display: flex; }
-.d-flex.justify-center { justify-content: center; } 
-.d-flex.justify-between { justify-content: space-between; } 
-.d-flex.justify-around { justify-content: space-around; } 
-.d-flex.align-center { align-items: center; } 
-.d-flex.align-end { align-items: flex-end; } 
-.d-flex.align-start { align-items: flex-start; } 
-.d-flex.column { flex-direction: column; }
-.d-felx.row { flex-direction: row; }
-.d-flex.gap-5 { gap: 5rem; }
-

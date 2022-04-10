@@ -73,5 +73,5 @@ export const getErrorFromCode = (code: string): ERROR => {
   }
 
   return getErrorFromStatusCode(status)
-
 }
+

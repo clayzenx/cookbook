@@ -7,4 +7,3 @@ export const initAuth = (app: FirebaseApp) => {
   if (!auth) throw new Error('Firebase init authentification error');
 }
 
-
