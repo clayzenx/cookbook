@@ -9,4 +9,4 @@
 	};
 </script>
 
-<Button onClick={signOutUser}>Sign Out</Button>
+<Button type="solid" on:click={signOutUser}>Sign Out</Button>

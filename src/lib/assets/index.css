@@ -6,3 +6,12 @@
 @tailwind components;
 @tailwind utilities;
 
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  transition: background-color 5000s ease-in-out 0s;
+  font-size: 1rem !important;
+}
+input:-webkit-autofill::first-line {font-size: 1rem; color: #49527B}

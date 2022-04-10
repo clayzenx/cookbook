@@ -1,22 +1,28 @@
 <script lang="ts">
-	import { signInUser, createUser } from '$utils/firebase/emailPasswordAuth';
-	import { getErrorFromCode, type ERROR } from '$utils/firebase/errorMessage';
-	import { goto } from '$app/navigation';
 	import { getAuth, updateProfile } from 'firebase/auth';
+	import { signInUser, createUser } from '$utils/firebase/emailPasswordAuth';
+	import { goto } from '$app/navigation';
+	import { user } from '$store/user';
+	import { getErrorFromCode, type ERROR } from '$utils/firebase/errorMessage';
+	import Input from '$components/ui/Input.svelte';
+	import Button from '$components/ui/Button.svelte';
+	import {
+		UserIcon,
+		KeyIcon,
+		EyeIcon,
+		EyeOffIcon,
+		LoginIcon
+	} from '@rgossiaux/svelte-heroicons/outline';
 
 	export let type: LOGINFORMTYPE;
 	export let data: ILoginFormData;
 	export let formError: ERROR = null;
 
-	import { user } from '$store/user';
-
-	let showingPass: boolean = false;
-	let passInput: HTMLInputElement;
+	let showPass: boolean = true;
+	let focus: 'password' | 'login' | '' = '';
 
 	$: formIsValid = () => {
 		if (!data.email || !data.password) return false;
-		if (type === 0 && !data.login) return false;
-
 		return true;
 	};
 
@@ -48,66 +54,49 @@
 	};
 </script>
 
-<div class="form-group p-2">
-	{#if type === 0}
-		<input bind:value={data.login} class="form-input input-lg" type="text" placeholder="Login" />
-		<p class="form-input-hint" />
-	{/if}
-
-	<input
+<div class="flex flex-col gap-5 p-5">
+	<Input
 		bind:value={data.email}
-		class={`form-input input-lg ${formError?.location === 'email' ? 'is-error' : ''}`}
-		type="text"
 		placeholder="Email"
-	/>
-	<p class="form-input-hint">{formError?.location === 'email' ? formError?.message : ''}</p>
+		on:focus={() => (focus = 'login')}
+		on:blur={() => (focus = '')}
+	>
+		<UserIcon slot="before" class={`w-6 ${focus === 'login' ? 'text-primary' : 'text-grey-500'}`} />
+	</Input>
 
-	<div class="has-icon-right">
-		<i
-			on:click={() => {
-				showingPass = !showingPass;
-				passInput.type = passInput.type === 'text' ? 'password' : 'text';
-				passInput.focus();
-			}}
-			class={`form-icon fi ${showingPass ? 'fi-rr-eye' : 'fi-rr-eye-crossed'} ${
-				data.password ? 'show' : ''
-			} text-gray mr-2 c-hand`}
-			style="top: 17px;"
+	<Input
+		bind:value={data.password}
+		type={showPass ? 'text' : 'password'}
+		placeholder="Password"
+		on:focus={() => (focus = 'password')}
+		on:blur={() => (focus = '')}
+	>
+		<KeyIcon
+			slot="before"
+			class={`w-6 ${focus === 'password' ? 'text-primary' : 'text-grey-500'}`}
 		/>
+		<div slot="after">
+			{#if showPass}
+				<EyeOffIcon
+					slot="after"
+					on:click={() => (showPass = false)}
+					class={`cursor-pointer w-6 ${focus === 'password' ? 'text-primary' : 'text-grey-500'}`}
+				/>
+			{:else}
+				<EyeIcon
+					slot="after"
+					on:click={() => (showPass = true)}
+					class={`cursor-pointer w-6 ${focus === 'password' ? 'text-primary' : 'text-grey-500'}`}
+				/>
+			{/if}
+		</div>
+	</Input>
+	<p class="text-xs mt-2 text-secondary text-left">
+		First time here? <a class="underline font-bold" href="/signUp">Join us</a>
+	</p>
 
-		<input
-			bind:value={data.password}
-			class={`form-input input-lg ${formError?.location === 'password' ? 'is-error' : ''}`}
-			type="password"
-			placeholder="Password"
-			bind:this={passInput}
-		/>
-		<p class="form-input-hint">{formError?.location === 'password' ? formError?.message : ''}</p>
-	</div>
-</div>
-
-{#if type === 1}
-	<button on:click={logIn} disabled={!formIsValid()} class="btn btn-lg btn-success p-centered">
+	<Button disabled={!formIsValid()} on:click={logIn}>
+		<LoginIcon slot="after" class="w-5" />
 		Log In
-	</button>
-{:else}
-	<button on:click={signUp} disabled={!formIsValid()} class="btn btn-lg btn-success p-centered">
-		Sign Up
-	</button>
-{/if}
-
-<style scoped>
-	.form-input-hint {
-		margin: 0px;
-		height: 24px;
-	}
-	.form-group {
-		margin-top: 20px;
-	}
-	.form-icon {
-		display: none;
-	}
-	.show {
-		display: block;
-	}
-</style>
+	</Button>
+</div>
