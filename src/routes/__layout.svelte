@@ -1,13 +1,13 @@
 <script lang="ts" type="module">
+	import { onMount } from 'svelte';
 	import { user } from '$store/user';
 	import { goto } from '$app/navigation';
-	import { onMount } from 'svelte';
 	import { getAuth, onAuthStateChanged } from 'firebase/auth';
 	import { initApp } from '$utils/firebase';
 	import { initAuth } from '$utils/firebase/auth';
 	import { firebaseConfig } from '$lib/fb';
-	import Header from '$components/Header.svelte';
-	import 'spectre.css';
+	import Header from '$components/layout/Header.svelte';
+	import Main from '$components/layout/Main.svelte';
 	import '$assets/index.css';
 
 	let app = initApp(firebaseConfig);
@@ -22,8 +22,9 @@
 	});
 </script>
 
-<div class="main-wrapper">
+<Main>
 	<Header />
 	<slot />
+
 	<div class="footer">footer</div>
-</div>
+</Main>

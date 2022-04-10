@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { user } from '$store/user';
-	import { CheckIcon } from '@rgossiaux/svelte-heroicons/outline';
 	import { UserCircleIcon } from '@rgossiaux/svelte-heroicons/outline';
 </script>
 
