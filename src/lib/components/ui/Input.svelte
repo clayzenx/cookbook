@@ -1,8 +1,12 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
+	import { InformationCircleIcon } from '@rgossiaux/svelte-heroicons/outline';
+	import { Popover, PopoverButton, PopoverPanel } from '@rgossiaux/svelte-headlessui';
+
 	export let value: string = '';
 	export let type: 'text' | 'password' = 'text';
 	export let placeholder: string = '';
+	export let errorMessages: any = [];
 
 	const dispatch = createEventDispatcher();
 
@@ -10,6 +14,7 @@
 
 	const input = ({ target }) => {
 		value = target.value;
+		dispatch('input');
 	};
 	const focus = () => {
 		dispatch('focus');
@@ -47,12 +52,25 @@
       focus:border-b
       focus:border-primary
       focus:text-primary
+      {errorMessages.length ? 'border-error focus:border-error' : ''}
     "
 	/>
-	<div
-		class="absolute h-full right-0 top-0 flex items-center gap-0.5"
-		on:click={() => inputElement.focus()}
-	>
-		<slot name="after" />
+	<div class="absolute h-full right-0 top-0 flex items-center gap-0.5">
+		<div on:click={() => inputElement.focus()}>
+			<slot name="after" />
+		</div>
+		{#if errorMessages.length}
+			<Popover class="relative h-full flex items-center">
+				<PopoverButton>
+					<InformationCircleIcon class="w-5 cursor-pointer text-error" />
+				</PopoverButton>
+
+				<PopoverPanel
+					class="absolute d-block bg-primary bg-opacity-70 rounded z-20 p-2 bottom-8 right-1/2 w-max"
+				>
+					<p class="text-sm text-white leading-4">{errorMessages[0]}</p>
+				</PopoverPanel>
+			</Popover>
+		{/if}
 	</div>
 </div>

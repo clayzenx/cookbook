@@ -22,31 +22,31 @@ const getErrorFromStatusCode = (status: STATUSCODE): ERROR => {
       return {
         type: 'auth',
         location: 'email',
-        message: 'email already in use'
+        message: 'Email already in use'
       }
     case STATUSCODE.INVALIDEMAIL:
       return {
         type: 'auth',
         location: 'email',
-        message: 'email is not valid'
+        message: 'Email is not valid'
       }
     case STATUSCODE.WEEKPASSWORD:
       return {
         type: 'auth',
         location: 'password',
-        message: 'password should be at least 6 characters'
+        message: 'Password should be at least 6 characters'
       }
     case STATUSCODE.WRONGPASSWORD:
       return {
         type: 'auth',
         location: 'password',
-        message: 'invalid password'
+        message: 'Invalid password'
       }
     case STATUSCODE.USERNOTFOUND:
       return {
         type: 'auth',
         location: 'email',
-        message: 'user not found'
+        message: 'User not found'
       }
   }
 }
