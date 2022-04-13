@@ -1,8 +1,10 @@
 <script lang="ts">
-	import { signInUser } from '$utils/firebase/emailPasswordAuth';
+	import { getAuth, updateProfile } from 'firebase/auth';
+	import { signInUser, createUser } from '$utils/firebase/emailPasswordAuth';
 	import { goto } from '$app/navigation';
+	import { user } from '$store/user';
 	import { getErrorFromCode } from '$utils/firebase/errorMessage';
-	import { emailValidator, passwordValidator } from '$utils/vest/loginForm';
+	import { emailValidator, passwordValidator, loginValidator } from '$utils/vest/loginForm';
 	import Input from '$components/ui/Input.svelte';
 	import Button from '$components/ui/Button.svelte';
 	import {
@@ -19,56 +21,90 @@
 	let formError: { [key: string]: string } = { email: '', password: '' };
 
 	let showPass: boolean = false;
-	let focus: 'password' | 'login' | '' = '';
+	let focus: 'password' | 'login' | 'email' | '' = '';
 
 	$: formIsValid = () => {
 		if (
 			!data.email ||
+			!data.login ||
 			!data.password ||
 			formError?.email ||
+			formError?.login ||
 			formError?.password ||
 			emailValidation.hasErrors() ||
+			loginValidation.hasErrors() ||
 			passwordValidation.hasErrors()
 		)
 			return false;
 		return true;
 	};
 
-	const logIn = () => {
-		signInUser(data.email, data.password)
-			.then(() => goto('/'))
+	let emailValidation = emailValidator.get();
+	let passwordValidation = passwordValidator.get();
+	let loginValidation = loginValidator.get();
+
+	const emailHandler = () => {
+		formError['email'] = '';
+		emailValidation = emailValidator(data.email);
+	};
+	const loginHandler = () => {
+		formError['login'] = '';
+		loginValidation = loginValidator(data.login);
+		console.log(loginValidation);
+	};
+	const passwordHandler = () => {
+		formError['password'] = '';
+		passwordValidation = passwordValidator(data.password);
+	};
+
+	const signUp = () => {
+		createUser(data.email, data.password)
+			.then(() => {
+				updateProfile(getAuth().currentUser, {
+					displayName: data.login
+				})
+					.then(() => {
+						user.set({ ...$user, displayName: data.login });
+						goto('/');
+					})
+					.catch(console.error);
+			})
 			.catch((e) => {
 				goto('/login');
 				let error = getErrorFromCode(e.code);
 				formError[error.location] = error.message;
 			});
 	};
-
-	let emailValidation = emailValidator.get();
-	let passwordValidation = passwordValidator.get();
-
-	const emailHandler = () => {
-		formError['email'] = '';
-		emailValidation = emailValidator(data.email);
-	};
-	const passwordHandler = () => {
-		formError['password'] = '';
-		passwordValidation = passwordValidator(data.password);
-	};
 </script>
 
-<div class="flex flex-col gap-3 mt-3">
+<div class="flex flex-col gap-5 mt-5">
 	<Input
-		bind:value={data.email}
-		placeholder="Email"
-		errorMessages={[formError?.email, ...emailValidation.getErrors('email')].filter(Boolean)}
-		on:input={emailHandler}
+		bind:value={data.login}
+		placeholder="Login"
+		errorMessages={[formError?.login, ...loginValidation.getErrors('login')].filter(Boolean)}
+		on:input={loginHandler}
 		on:focus={() => (focus = 'login')}
 		on:blur={() => (focus = '')}
 	>
 		<UserIcon
 			slot="before"
 			class={`w-6 ${focus === 'login' ? 'text-primary' : 'text-grey-500'}  ${
+				loginValidation.hasErrors() || formError['login']?.length ? 'text-error' : ''
+			}`}
+		/>
+	</Input>
+
+	<Input
+		bind:value={data.email}
+		placeholder="Email"
+		errorMessages={[formError?.email, ...emailValidation.getErrors('email')].filter(Boolean)}
+		on:input={emailHandler}
+		on:focus={() => (focus = 'email')}
+		on:blur={() => (focus = '')}
+	>
+		<UserIcon
+			slot="before"
+			class={`w-6 ${focus === 'email' ? 'text-primary' : 'text-grey-500'}  ${
 				emailValidation.hasErrors() || formError['email']?.length ? 'text-error' : ''
 			}`}
 		/>
@@ -108,11 +144,11 @@
 		</div>
 	</Input>
 	<p class="text-xs mt-2 text-secondary text-left">
-		First time here? <a class="underline font-bold" href="/login/signUp">Join us</a>
+		Have a cookbook? <a class="underline font-bold" href="/login">Log In</a>
 	</p>
 
-	<Button disabled={!formIsValid()} on:click={logIn}>
+	<Button disabled={!formIsValid()} on:click={signUp}>
 		<LoginIcon slot="after" class="w-5" />
-		Log In
+		Sign Up
 	</Button>
 </div>

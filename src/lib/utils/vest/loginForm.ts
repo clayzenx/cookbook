@@ -11,3 +11,15 @@ export const passwordValidator = create(password => {
     enforce(password).isNotBlank();
   })
 })
+
+export const loginValidator = create(login => {
+  test('login', 'Login is required', () => {
+    enforce(login).isNotBlank();
+  })
+
+  test('login', 'Should be longer', () => {
+    enforce(login).longerThanOrEquals(6);
+  })
+
+})
+

@@ -16,12 +16,11 @@
 	onMount(() => {
 		const auth = getAuth();
 		onAuthStateChanged(auth, (state) => {
-			console.log(state);
 			if (state)
 				user.set({
 					displayName: state.displayName || '',
-					email: state.email,
-					image: state.photoURL
+					email: state.email || '',
+					image: state.photoURL || ''
 				});
 			else goto('/login');
 		});
@@ -31,7 +30,6 @@
 <Main>
 	<Header />
 	<slot />
-
 	<div class="footer">footer</div>
 </Main>
 

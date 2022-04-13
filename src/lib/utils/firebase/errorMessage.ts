@@ -28,7 +28,7 @@ const getErrorFromStatusCode = (status: STATUSCODE): ERROR => {
       return {
         type: 'auth',
         location: 'email',
-        message: 'Email is not valid'
+        message: 'Invalid email'
       }
     case STATUSCODE.WEEKPASSWORD:
       return {
@@ -53,6 +53,7 @@ const getErrorFromStatusCode = (status: STATUSCODE): ERROR => {
 
 
 export const getErrorFromCode = (code: string): ERROR => {
+  console.log(code)
   let status = 0
   switch (code) {
     case 'auth/email-already-in-use':

@@ -16,12 +16,12 @@
     py-2 
     text-sm 
     font-medium 
-    {type === 'link' ? '' : 'border'}
+    {type === 'outline' ? 'border' : ''}
     {type === 'link' ? '' : `bg-${color}`}
-    border-{color}
+    {`border-${color}`}
     {type === 'solid'
 		? 'bg-opacity-80 hover:bg-opacity-70'
-		: 'bg-opacity-5 hover:bg-opacity-10'}    
+		: 'bg-opacity-0 hover:bg-opacity-90'}    
     active:bg-opacity-100
     active:text-{type === 'link' ? color : 'white'}
     rounded-md
@@ -29,7 +29,7 @@
     focus-visible:ring-2 
     focus-visible:ring-grey-500
     focus-visible:ring-opacity-90
-    {type === 'solid' ? 'text-white' : `text-{color}`}
+    {type === 'solid' ? 'text-white' : `text-${color}`}
     {disabled ? 'bg-opacity-50 hover:bg-opacity-50 active:bg-opacity-50' : ''}
   "
 	on:click={() => dispatch('click')}
